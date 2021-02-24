@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .font-pt-serif {
+        font-family: 'PT Serif', serif;
+    }
+    .text-shadow {
+        text-shadow: 2px 2px #000000;
+    }
+}
+
