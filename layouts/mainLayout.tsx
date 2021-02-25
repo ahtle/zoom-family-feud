@@ -4,7 +4,7 @@ import MainHeader from '../components/MainHeader'
 import MainFooter from '../components/MainFooter'
 
 const MainLayout = ({ children }) => (
-    <div id="MainLayout">
+    <div id="MainLayout" className="bg-yellow-50">
         <Head>
             <title>Zoom Family Feud</title>
             <link rel="icon" href="/favicon.ico"/>
@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => (
 
         <MainHeader />
         
-        <main className="container mx-auto min-h-90vh">
+        <main className="min-h-90vh">
             {children}
         </main>
 

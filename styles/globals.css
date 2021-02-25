@@ -11,3 +11,8 @@
     }
 }
 
+@layer base {
+    body {
+      @apply font-pt-serif;
+    }
+}
