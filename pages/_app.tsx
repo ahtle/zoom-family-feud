@@ -1,9 +1,10 @@
-import '../styles/globals.css'
-import React from 'react'
-import PageWithLayoutType from '../types/pageWithLayout'
+import '../styles/globals.css';
+import React from 'react';
+import PageWithLayoutType from '../types/pageWithLayout';
+import { AppProvider } from '../contexts/AppContext';
 
 type AppLayoutProps = {
-  Component: PageWithLayoutType
+  Component: PageWithLayoutType,
   pageProps: any
 }
 
@@ -12,7 +13,9 @@ function MyApp({Component, pageProps}: AppLayoutProps) {
 
   return (
     <Layout>
-      <Component {...pageProps} />
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </Layout>
   )
 }

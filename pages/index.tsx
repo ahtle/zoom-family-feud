@@ -1,10 +1,19 @@
-import { FC } from 'react'
-import PageWithLayoutType from '../types/pageWithLayout'
-import MainLayout from '../layouts/mainLayout'
-import TeamPanel from '../components/TeamPanel'
-import SetupPanel from '../components/SetupPanel'
+import { FC, useContext } from 'react';
+import PageWithLayoutType from '../types/pageWithLayout';
+import MainLayout from '../layouts/mainLayout';
+import TeamPanel from '../components/TeamPanel';
+import SetupPanel from '../components/SetupPanel';
+import { AppContext } from '../contexts/AppContext';
+
+
 
 const Home: FC = () => {
+  const {state, setNumberOfPlayer} = useContext(AppContext);
+  
+  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setNumberOfPlayer(e.target.value)
+  }
+
   return (
     <div id="home-page">
       <div className="grid grid-cols-6 gap-2 min-h-90vh">
@@ -19,11 +28,13 @@ const Home: FC = () => {
         {/* middle column */}
         <div className="col-span-4 flex flex-col justify-between">
           <div className="h-4/5">
-            <SetupPanel />
+            <SetupPanel 
+              onChange={handleOnChange}
+            />
           </div>
 
           <div className="h-32 bg-gray-700">
-            <p></p>
+            <p className="text-white">{state.numberOfPlayers}</p>
           </div>
         </div>
 
@@ -33,7 +44,6 @@ const Home: FC = () => {
             teamName="TEAM TWO"
           />
         </div>
-
 
       </div>
     </div>
