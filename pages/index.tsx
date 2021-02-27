@@ -8,10 +8,6 @@ import { AppContext } from '../contexts/AppContext';
 const Home: FC = () => {
   
   // methods
-  const selectNumberOfPlayers = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setNumberOfPlayers(parseInt(e.target.value))
-  }
-
   function setTeamOnePlayer(e: React.ChangeEvent<HTMLInputElement>, index: number) {
     let newArr = teamOne.slice();
     newArr[index] = e.target.value;
@@ -24,12 +20,17 @@ const Home: FC = () => {
     setTeamTwo(newArr);
   }
 
+  function startGameClick() {
+    dispatch({type: 'START_GAME', payload: {teamOne, teamTwo}});
+  }
+
   // global state
-  const {numberOfPlayers, setNumberOfPlayers} = useContext(AppContext);
+  const {state, dispatch} = useContext(AppContext);
 
   // local state
-  const [teamOne, setTeamOne] = useState([]);
-  const [teamTwo, setTeamTwo] = useState([]);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(3);
+  const [teamOne, setTeamOne] = useState(['a', 'b']);
+  const [teamTwo, setTeamTwo] = useState(['c']);
   const [ready, setReady] = useState(false);
 
   // initiate team members
@@ -93,6 +94,8 @@ const Home: FC = () => {
             teamName="TEAM ONE"
             members={teamOne}
             onChange={setTeamOnePlayer}
+            phase={state.phase}
+            team={state.teams[0]}
           />
         </div>
 
@@ -100,7 +103,9 @@ const Home: FC = () => {
         <div className="col-span-4 flex flex-col justify-between">
           <div className="h-4/5">
             <SetupPanel 
-              onChange={selectNumberOfPlayers}
+              defaultNumberOfPlayers={numberOfPlayers}
+              onChange={(e) => setNumberOfPlayers(parseInt(e.target.value))}
+              onClick={startGameClick}
               ready={ready}
             />
           </div>
@@ -115,6 +120,8 @@ const Home: FC = () => {
             teamName="TEAM TWO"
             members={teamTwo}
             onChange={setTeamTwoPlayer}
+            phase={state.phase}
+            team={state.teams[1]}
           />
         </div>
 

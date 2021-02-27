@@ -6,7 +6,22 @@ module.exports = {
       '90vh': '90vh',
       'full': '100%',
     },
-    extend: {},
+    extend: {
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
+        textSize: 'textSize 1s ease-in-out infinite',
+      },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-2deg)' },
+          '50%': { transform: 'rotate(2deg)' },
+        },
+        textSize: {
+          '0%, 100%': { fontSize: '1em' },
+          '50%': { fontSize: '1.1em' },
+        },
+      },
+    },
   },
   variants: {
     extend: {},

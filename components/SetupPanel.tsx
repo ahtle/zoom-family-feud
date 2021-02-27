@@ -1,13 +1,19 @@
 type Props = {
+    defaultNumberOfPlayers: number,
     ready: boolean,
-    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
+    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+    onClick: () => void,
 }
 
 export default function SetupPanel (props: Props) {
     function readyButton() {
         if (props.ready) {
             return (
-                <button className="mt-10 px-6 py-4 bg-red-500 border-4 border-yellow-300 rounded-lg text-white font-bold">START GAME!</button>
+                <button className="mt-10 px-6 py-4 bg-red-500 border-4 border-yellow-300 rounded-lg text-white font-bold animate-wiggle"
+                    onClick={props.onClick}
+                >
+                    START GAME!
+                </button>
             )
         }
     }
@@ -19,6 +25,7 @@ export default function SetupPanel (props: Props) {
 
             <select className="border border-gray-100 rounded px-4 py-2"
                 onChange={props.onChange}
+                value={props.defaultNumberOfPlayers}
             >
               <option value={0}>Select one</option>
               <option value={2}>2</option>

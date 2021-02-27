@@ -1,19 +1,27 @@
+import React, { createContext, useReducer } from 'react';
+import { AppReducer, reducerState, initialState } from '../reducers/reducer';
 
-import React, { createContext, useState, useEffect } from 'react';
 
-export const AppContext = createContext(null);
+// Start context
+export const AppContext = createContext<{
+    state: reducerState,
+    dispatch: React.Dispatch<any>,
+}>({
+    state: initialState,
+    dispatch: () => null,
+});
 
 type Props = {
     children: React.ReactNode
 };
 
 export const AppProvider = ({children}: Props) => {
-    const [numberOfPlayers, setNumberOfPlayers] = useState(0);
+    const [state, dispatch] = useReducer(AppReducer, initialState);
 
     return (
         <AppContext.Provider value={{
-            numberOfPlayers,
-            setNumberOfPlayers,
+            state,
+            dispatch,
         }}>
             {children}
         </AppContext.Provider>
