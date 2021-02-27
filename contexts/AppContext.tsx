@@ -1,30 +1,19 @@
 
-import React, { createContext, ReactNode } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AppContext = createContext(null);
 
 type Props = {
-    children: ReactNode
+    children: React.ReactNode
 };
 
 export const AppProvider = ({children}: Props) => {
-    const [state, setState] = React.useState({
-        numberOfPlayers: 0,
-        text: 'world',
-    });
+    const [numberOfPlayers, setNumberOfPlayers] = useState(0);
 
-    function setNumberOfPlayer(numberOfPlayers: number) {
-        setState({...state, numberOfPlayers});
-    }
-    function setText(text: string) {
-        setState({...state, text});
-    }
-  
     return (
         <AppContext.Provider value={{
-            state,
-            setNumberOfPlayer,
-            setText,
+            numberOfPlayers,
+            setNumberOfPlayers,
         }}>
             {children}
         </AppContext.Provider>
