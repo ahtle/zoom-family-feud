@@ -1,15 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-import * as questions from './questions.json';
+import data from './questions.json';
 
 const prisma = new PrismaClient();
+const questions = <any>data;
 
 async function main() {
+    console.log('start seeder')
     for (let question of questions) {
         const q = await prisma.question.create({
             data: {
                 name: question.name
             }
         });
+
         
         for (let answer of question.answers) {
             await prisma.answer.create({

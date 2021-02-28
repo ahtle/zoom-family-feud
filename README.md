@@ -32,7 +32,6 @@ prisma/migrations, dev.db.
 
 view database
 npx prisma studio --experimental
-http://localhost:5555/
 
 ## Deploy on Vercel
 
