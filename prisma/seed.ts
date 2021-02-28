@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 let questions = require('./questions.json');
 
 const prisma = new PrismaClient();
