@@ -1,6 +1,6 @@
 import { FC, useContext, useState, useEffect } from 'react';
 // import PageWithLayoutType from '../types/pageWithLayout';
-// import MainLayout from '../layouts/mainLayout';
+// import MainLayout from '../layouts/MainLayout';
 import TeamPanel from '../components/TeamPanel';
 import SetupPanel from '../components/SetupPanel';
 import { AppContext } from '../contexts/AppContext';
