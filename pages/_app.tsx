@@ -4,26 +4,11 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import MainHeader from '../components/MainHeader';
 import MainFooter from '../components/MainFooter';
-
-
-// import PageWithLayoutType from '../types/pageWithLayout';
 import { AppProvider } from '../contexts/AppContext';
 
-// type AppLayoutProps = {
-//   Component: PageWithLayoutType,
-//   pageProps: any
-// }
-
 function MyApp({ Component, pageProps }: AppProps) {
-// function MyApp({pageProps}: AppLayoutProps) {
-  // const Layout = Component.layout || ((children: React.ReactNode) => <>{children}</>);
 
   return (
-    // <Layout>
-    //   <AppProvider>
-    //     <Component {...pageProps} />
-    //   </AppProvider>
-    // </Layout>
     
     <div id="MyApp" className="bg-yellow-50">
         <Head>

@@ -14,4 +14,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 push to main branch to deploy to vercel
 
-['https://zoom-family-feud.vercel.app/'](https://zoom-family-feud.vercel.app/)
+[https://zoom-family-feud.vercel.app/](https://zoom-family-feud.vercel.app/)

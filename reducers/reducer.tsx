@@ -42,7 +42,8 @@ export const AppReducer = (state, action) => {
             let teams = [...state.teams];
             teams[0].members = action.payload.teamOne;
             teams[1].members = action.payload.teamTwo;
-            return {...state, teams, phase: 'HEADS_UP'}
+
+            return {...state, teams, questions: action.payload.questions, phase: 'HEADS_UP'}
         }
         
     }

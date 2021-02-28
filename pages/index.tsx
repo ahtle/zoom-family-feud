@@ -1,6 +1,4 @@
 import { FC, useContext, useState, useEffect } from 'react';
-// import PageWithLayoutType from '../types/pageWithLayout';
-// import MainLayout from '../layouts/MainLayout';
 import TeamPanel from '../components/TeamPanel';
 import SetupPanel from '../components/SetupPanel';
 import { AppContext } from '../contexts/AppContext';
@@ -20,8 +18,10 @@ const Home: FC = () => {
     setTeamTwo(newArr);
   }
 
-  function startGameClick() {
-    dispatch({type: 'START_GAME', payload: {teamOne, teamTwo}});
+  const startGameClick = async () => {
+    let res = await fetch('/api/questions');
+    const questions = await res.json();
+    dispatch({type: 'START_GAME', payload: {teamOne, teamTwo, questions}});
   }
 
   // global state
@@ -129,7 +129,5 @@ const Home: FC = () => {
     </div>
   )
 };
-
-// (Home as PageWithLayoutType).layout = MainLayout
 
 export default Home
