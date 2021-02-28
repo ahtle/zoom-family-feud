@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Name a Bad Job for Someone Who's Accident-Prone",
+        "answers": [ 
+            {
+                "name": "Driver",
+                "points": 33
+            },
+            {
+                "name": "Construction",
+                "points": 20
+            },
+            {
+                "name": "Police Officer",
+                "points": 11
+            },
+            {
+                "name": "Food Service",
+                "points": 10
+            },
+            {
+                "name": "Glass Maker",
+                "points": 9
+            },
+            {
+                "name": "Window Washer",
+                "points": 7
+            },
+            {
+                "name": "Surgeon",
+                "points": 6
+            }
+        ]
+    },
+    {
+        "name": "Name a Public Place Where You're Likely to Catch a Cold or Flu Bug",
+        "answers": [ 
+            {
+                "name": "School",
+                "points": 41
+            },
+            {
+                "name": "Hospital",
+                "points": 21
+            },
+            {
+                "name": "Airplane",
+                "points": 10
+            },
+            {
+                "name": "Doctor's Surgery/Office",
+                "points": 9
+            },
+            {
+                "name": "Public Transportation",
+                "points": 6
+            },
+            {
+                "name": "Shopping Centre",
+                "points": 6
+            },
+            {
+                "name": "Work",
+                "points": 5
+            }
+        ]
+    }
+]
