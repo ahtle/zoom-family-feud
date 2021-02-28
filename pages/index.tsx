@@ -1,6 +1,6 @@
 import { FC, useContext, useState, useEffect } from 'react';
-import PageWithLayoutType from '../types/pageWithLayout';
-import MainLayout from '../layouts/mainLayout';
+// import PageWithLayoutType from '../types/pageWithLayout';
+// import MainLayout from '../layouts/mainLayout';
 import TeamPanel from '../components/TeamPanel';
 import SetupPanel from '../components/SetupPanel';
 import { AppContext } from '../contexts/AppContext';
@@ -130,6 +130,6 @@ const Home: FC = () => {
   )
 };
 
-(Home as PageWithLayoutType).layout = MainLayout
+// (Home as PageWithLayoutType).layout = MainLayout
 
 export default Home

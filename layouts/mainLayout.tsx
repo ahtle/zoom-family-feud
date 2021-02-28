@@ -1,9 +1,13 @@
-import React from 'react'
-import Head from 'next/head'
-import MainHeader from '../components/MainHeader'
-import MainFooter from '../components/MainFooter'
+import React from 'react';
+import Head from 'next/head';
+import MainHeader from '../components/MainHeader';
+import MainFooter from '../components/MainFooter';
 
-const MainLayout = ({ children }) => (
+type Props = {
+    children: React.ReactNode
+};
+
+const MainLayout = ({children}: Props) => (
     <div id="MainLayout" className="bg-yellow-50">
         <Head>
             <title>Zoom Family Feud</title>
