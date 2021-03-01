@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let max = questions.length;
   let indexes = [];
   while (indexes.length < 3) {
-    let index = Math.floor(Math.random() * Math.floor(max + 1));
+    let index = Math.floor(Math.random() * Math.floor(max));
     if (indexes.indexOf(index) === -1) {
       indexes.push(index);
     }

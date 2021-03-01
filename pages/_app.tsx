@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     
-    <div id="MyApp" className="bg-yellow-50">
+    <div id="MyApp">
         <Head>
             <title>Zoom Family Feud</title>
             <link rel="icon" href="/favicon.ico"/>

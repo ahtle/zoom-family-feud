@@ -12,21 +12,21 @@ type Props = {
 export default function TeamPanel (props: Props) {
     function renderInputs() {
         return (
-            <div>
-                {props.members.map((member, index) => {
-                    return (
-                        <Fade
-                            in={props.phase === 'SET_UP'}
-                            key={index}
-                        >
-                            <input className="w-full my-2 p-2 rounded" type="text" placeholder="Player name" 
-                                value={member}
-                                onChange={e => props.onChange(e, index)}
-                            />
-                        </Fade> 
-                    )
-                })}
-            </div>
+            <Fade
+                in={props.phase === 'SET_UP'}
+                >
+                    <div>
+                        {props.members.map((member, index) => {
+                            return (
+                                <input className="w-full my-2 p-2 rounded" type="text" placeholder="Player name" 
+                                    key={index}
+                                    value={member}
+                                    onChange={e => props.onChange(e, index)}
+                                />
+                                )
+                            })}
+                    </div>
+            </Fade> 
         )
     }
 

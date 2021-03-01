@@ -21,16 +21,16 @@
     opacity: 0.01;
 }
 
-.fade-enter.fade-enter-active {
+.fade-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity 2000ms;
 }
 
-.fade-leave {
+.fade-exit {
     opacity: 1;
 }
 
-.fade-leave.fade-leave-active {
+.fade-exit-active {
     opacity: 0.01;
-    transition: opacity 300ms ease-in;
+    transition: opacity 500ms;
 }

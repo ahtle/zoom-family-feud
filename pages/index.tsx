@@ -1,6 +1,8 @@
 import { FC, useContext, useState, useEffect } from 'react';
 import TeamPanel from '../components/TeamPanel';
 import SetupPanel from '../components/SetupPanel';
+import GamePanel from '../components/GamePanel';
+import ControlPanel from '../components/ControlPanel';
 import { AppContext } from '../contexts/AppContext';
 
 const Home: FC = () => {
@@ -85,11 +87,11 @@ const Home: FC = () => {
   }, [teamOne, teamTwo]);
 
   return (
-    <div id="home-page">
+    <div id="home-page" className="bg-yellow-100">
       <div className="grid grid-cols-6 gap-2 min-h-90vh">
 
         {/* left column */}
-        <div className="border-8 border-yellow-900 bg-yellow-100 p-2">
+        <div className="border-8 border-yellow-900 bg-yellow-50 p-2">
           <TeamPanel
             teamName="TEAM ONE"
             members={teamOne}
@@ -101,21 +103,40 @@ const Home: FC = () => {
 
         {/* middle column */}
         <div className="col-span-4 flex flex-col justify-between">
-          <div className="h-4/5">
+          <div className="h-2/3">
+
             <SetupPanel 
+              in={state.phase === 'SET_UP'}
               defaultNumberOfPlayers={numberOfPlayers}
               onChange={(e) => setNumberOfPlayers(parseInt(e.target.value))}
               onClick={startGameClick}
               ready={ready}
             />
+
+            <GamePanel
+              in={state.phase !== 'SET_UP'}
+              phase={state.phase}
+              answeredIDs={state.answeredIDs}
+              question={state.questions[state.questionIndex]}
+            />
+
+
+
           </div>
 
-          <div className="h-32 bg-gray-700">
+          <div className="h-1/3 bg-gray-700 p-4 flex">
+            <ControlPanel
+              state={state}
+              startHeadsUp={() => dispatch({type: 'HEADS_UP'})}
+              answeredFirst={(index) => dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: index})}
+              answeredFirstCorrect={() => dispatch({type: 'HEADS_UP_CORRECT'})}
+              answeredFirstWrong={() => dispatch({type: 'HEADS_UP_WRONG'})}
+            />
           </div>
         </div>
 
         {/* right column */}
-        <div className="border-8 border-yellow-900 bg-yellow-100 p-2">
+        <div className="border-8 border-yellow-900 bg-yellow-50 p-2">
           <TeamPanel
             teamName="TEAM TWO"
             members={teamTwo}

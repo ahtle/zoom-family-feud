@@ -64,5 +64,34 @@
                 "points": 5
             }
         ]
+    },
+    {
+        "name": "Tell me something many people do just once a week",
+        "answers": [ 
+            {
+                "name": "Church",
+                "points": 35
+            },
+            {
+                "name": "Groceries/shopping",
+                "points": 24
+            },
+            {
+                "name": "Laundry",
+                "points": 12
+            },
+            {
+                "name": "Clean the house",
+                "points": 6
+            },
+            {
+                "name": "Sleep in",
+                "points": 6
+            },
+            {
+                "name": "Eat out",
+                "points": 4
+            }
+        ]
     }
 ]
