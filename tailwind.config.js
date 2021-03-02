@@ -9,16 +9,16 @@ module.exports = {
     extend: {
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
-        textSize: 'textSize 1s ease-in-out infinite',
+        border: 'border 1s ease-in-out infinite',
       },
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-2deg)' },
           '50%': { transform: 'rotate(2deg)' },
         },
-        textSize: {
-          '0%, 100%': { fontSize: '1em' },
-          '50%': { fontSize: '1.1em' },
+        border: {
+          '0%, 100%': { borderColor: 'yellow' },
+          '50%': { borderColor: 'red' },
         },
       },
     },

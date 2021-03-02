@@ -9,7 +9,7 @@ export type reducerState = {
     round: number,
     questions: Array<any>,
     questionIndex: number,
-    answeredIDs: Array<number>,
+    answeredNames: Array<number>,
     teamTurn: number,
     teams: Array<Team>,
 }
@@ -19,7 +19,7 @@ export const initialState = {
     round: 1,
     questions: [],
     questionIndex: 0,
-    answeredIDs: [],
+    answeredNames: [],
     teamTurn: 0,
     teams: [
         {
@@ -53,11 +53,36 @@ export const AppReducer = (state, action) => {
         case 'HEADS_UP_ANSWERED_FIRST': {
             return {...state, teamTurn: action.payload, phase: 'HEADS_UP_ANSWERED_FIRST'};
         }
-        case 'HEADS_UP_CORRECT': {
+        case 'ANSWERED_CORRECT': {
             return {...state, phase: 'SELECT_ANSWER'};
         } case 'HEADS_UP_WRONG': {
             let teamTurn = state.teamTurn === 0 ? 1 : 0;
             return {...state, teamTurn, phase: 'WAIT_FOR_ANSWER'};
+        } case 'PROCESS_ANSWER': {
+            let answeredNames = state.answeredNames.slice();
+            answeredNames.push(action.payload.name);
+            let teams = state.teams.slice();
+            teams[state.teamTurn].points += action.payload.points;
+
+            if (teams[state.teamTurn].members.length === teams[state.teamTurn].member_turn + 1) {
+                teams[state.teamTurn].member_turn = 0;
+            } else {
+                teams[state.teamTurn].member_turn ++;
+            }
+            
+            let phase = 'WAIT_FOR_ANSWER';
+
+            if (answeredNames.length === state.questions[state.questionIndex].answers.length) {
+                if (state.questionIndex === 2) {
+                    console.log('end game')
+                    phase = 'END_GAME';
+                } else {
+                    console.log('end round')
+                    phase = 'END_ROUND';
+                }
+            }
+            
+            return {...state, answeredNames, teams, phase}
         }
 
         default:

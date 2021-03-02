@@ -6,6 +6,7 @@ type Props = {
     members: Array<string>,
     team: Team,
     phase: string,
+    teamTurn: boolean,
     onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void
 }
 
@@ -30,6 +31,20 @@ export default function TeamPanel (props: Props) {
         )
     }
 
+    function activePlayer(index: number) {
+        if (props.phase === 'HEADS_UP_INFO') {
+            if (props.team.member_turn === index) {
+                return 'border-4 border-red-500';
+            }
+        }
+
+        if (props.teamTurn) {
+            if (props.team.member_turn === index) {
+                return 'border-4 border-red-500';
+            }
+        }
+    }
+
     function renderPlayers() {
         return (
             <Fade
@@ -37,7 +52,7 @@ export default function TeamPanel (props: Props) {
             >
                 <div className="my-4">
                     {props.team.members.map((member, index) => {
-                        return <p key={index} className="my-2 p-2 rounded bg-blue-500 text-white">{member}</p>
+                        return <p key={index} className={`${activePlayer(index)} my-2 p-2 rounded bg-blue-500 text-white`}>{member}</p>
                     })}
                     <p className="my-4 p-2 rounded bg-gradient-to-r from-pink-400 to-red-500 text-white font-bold border-2 border-white text-center">{props.team.points}</p>
                 </div>

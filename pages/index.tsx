@@ -98,6 +98,7 @@ const Home: FC = () => {
             onChange={setTeamOnePlayer}
             phase={state.phase}
             team={state.teams[0]}
+            teamTurn={state.teamTurn === 0}
           />
         </div>
 
@@ -116,8 +117,9 @@ const Home: FC = () => {
             <GamePanel
               in={state.phase !== 'SET_UP'}
               phase={state.phase}
-              answeredIDs={state.answeredIDs}
+              answeredNames={state.answeredNames}
               question={state.questions[state.questionIndex]}
+              answerClicked={(answer) => dispatch({type: 'PROCESS_ANSWER', payload: answer})}
             />
 
 
@@ -129,7 +131,7 @@ const Home: FC = () => {
               state={state}
               startHeadsUp={() => dispatch({type: 'HEADS_UP'})}
               answeredFirst={(index) => dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: index})}
-              answeredFirstCorrect={() => dispatch({type: 'HEADS_UP_CORRECT'})}
+              answeredCorrect={() => dispatch({type: 'ANSWERED_CORRECT'})}
               answeredFirstWrong={() => dispatch({type: 'HEADS_UP_WRONG'})}
             />
           </div>
@@ -143,6 +145,7 @@ const Home: FC = () => {
             onChange={setTeamTwoPlayer}
             phase={state.phase}
             team={state.teams[1]}
+            teamTurn={state.teamTurn === 1}
           />
         </div>
 
