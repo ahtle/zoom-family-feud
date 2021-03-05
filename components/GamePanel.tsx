@@ -7,12 +7,15 @@ type Props = {
     answeredNames: Array<number>,
     answeredWrongCount: number,
     answerClicked: (answer: any) => void,
+    stealAnswerClicked: (answer: any) => void,
 }
 
 export default function GamePanel (props: Props) {
     function handleAnswerClick(answer: any) {
         if (props.phase === 'SELECT_ANSWER') {
             props.answerClicked(answer);
+        } else if (props.phase === 'STEAL_WAIT_FOR_ANSWER') {
+            props.stealAnswerClicked(answer);
         }
     }
 
@@ -67,6 +70,12 @@ export default function GamePanel (props: Props) {
                     {arr}
                 </div>
             );
+        } else if (props.phase === 'STEAL_SHOW_X') {
+            return (
+                <div className="text-red-500 text-9xl absolute top-32 flex">
+                    <p className="mx-5">X</p>
+                </div>
+            )
         }
     }
 

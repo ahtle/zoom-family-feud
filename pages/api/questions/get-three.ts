@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from 'next';
-import data from '../../questions.json';
+import data from '../../../questions.json';
 
 const questions = <any>data;
 
@@ -21,6 +21,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     arr.push(questions[i]);
   });
 
-  res.status(200);
-  res.json(arr);
+  res.status(200).json(arr);
 }

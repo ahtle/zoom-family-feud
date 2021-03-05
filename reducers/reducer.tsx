@@ -3,12 +3,21 @@ export type Team = {
     members: Array<string>,
     member_turn: number,
     points: number,
-    rounds_won: number,
+    roundsWon: number,
+}
+
+export type Question = {
+    id: number,
+    name: string,
+    answers: Array<{
+        name: string,
+        points: number
+    }>
 }
 
 export type reducerState = {
     phase: string,
-    questions: Array<any>,
+    questions: Question,
     questionIndex: number,
     answeredNames: Array<number>,
     answeredWrongCount: number,
@@ -88,6 +97,54 @@ export const AppReducer = (state, action) => {
         case 'STEAL': {
             return {...state, phase: 'STEAL'};
         } 
+        case 'STEAL_ANSWERED_CORRECT': {
+            return {...state, phase: 'STEAL_WAIT_FOR_ANSWER'};
+        } 
+        case 'STEAL_ANSWERED_WRONG': {
+            return {...state, phase: 'STEAL_SHOW_X'};
+        } 
+        case 'STEAL_PROCESS_ANSWER': {
+            let answeredNames = state.answeredNames.slice();
+            answeredNames.push(action.payload.name);
+
+            let phase = 'STEAL';
+
+            let teamIndex = state.teamTurn === 0 ? 1 : 0;
+            let teams = state.teams.slice();
+            teams[teamIndex].points += action.payload.points;
+
+            if (answeredNames.length === state.questions[state.questionIndex].answers.length) {
+                if (teams[0].points > teams[1].points) {
+                    teams[0].roundsWon++;
+                } else {
+                    teams[1].roundsWon++;
+                }
+
+                if (state.questionIndex === 2) {
+                    phase = 'END_GAME';
+                } else {
+                    phase = 'END_ROUND';
+                }
+            }
+
+            return {...state, answeredNames, teams, phase};
+        } 
+        case 'STEAL_OVER': {
+            
+            let teams = state.teams.slice();
+            if (teams[0].points > teams[1].points) {
+                teams[0].roundsWon++;
+            } else {
+                teams[1].roundsWon++;
+            }
+
+            let phase = 'END_ROUND';
+            if (state.questionIndex === 2) {
+                phase = 'END_GAME';
+            }
+
+            return {...state, teams, phase};
+        } 
         case 'PROCESS_ANSWER': {
             let answeredNames = state.answeredNames.slice();
             answeredNames.push(action.payload.name);
@@ -98,9 +155,9 @@ export const AppReducer = (state, action) => {
 
             if (answeredNames.length === state.questions[state.questionIndex].answers.length) {
                 if (teams[0].points > teams[1].points) {
-                    teams[0].rounds_won++;
+                    teams[0].roundsWon++;
                 } else {
-                    teams[1].rounds_won++;
+                    teams[1].roundsWon++;
                 }
 
                 if (state.questionIndex === 2) {
@@ -129,7 +186,10 @@ export const AppReducer = (state, action) => {
                 teams[teamTurn].member_turn ++;
             }
             let questionIndex = ++state.questionIndex;
-            return {...state, teams, questionIndex, teamTurn, answeredNames: [], phase: 'WAIT_FOR_ANSWER'}
+            return {...state, teams, questionIndex, teamTurn, answeredWrongCount: 0, answeredNames: [], phase: 'WAIT_FOR_ANSWER'}
+        }
+        case 'RESTART': {
+            return {...initialState};
         }
 
         default:

@@ -17,11 +17,13 @@ export default function ControlPanel (props: Props) {
             return 'SURVEY SAY...';
         } else if (props.state.phase === 'WAIT_FOR_ANSWER') {
             return `${activeMember}'s TURN!`
-        } else if (props.state.phase === 'SHOW_X') {
+        } else if (props.state.phase === 'SHOW_X' || props.state.phase === 'STEAL_SHOW_X') {
             return `OOPS...`
         } else if (props.state.phase === 'STEAL') {
             let team = props.state.teamTurn === 0 ? props.state.teams[1] : props.state.teams[0];
             return `${team.name}'S CHANGE TO STEAL THE BOARD`;
+        } else if (props.state.phase === 'STEAL_WAIT_FOR_ANSWER') {
+            return `SELECT ANSWER ABOVE`;
         } else if (props.state.phase === 'END_ROUND') {
             let teamWon = props.state.teams[0].points  > props.state.teams[1].points ? 'TEAM ONE' : 'TEAM TWO';
             return `${teamWon} WON THE ROUND!`;
@@ -43,7 +45,8 @@ export default function ControlPanel (props: Props) {
         } else if (props.state.phase === 'SELECT_ANSWER') {
             return 'YAY! Select the answer above';
         } else if (props.state.phase === 'STEAL') {
-            return 'Answer as a team';
+            let team = props.state.teamTurn === 0 ? props.state.teams[1] : props.state.teams[0];
+            return `Answer as a team. Did ${team.name} answered correctly?`;
         } else if (props.state.phase === 'END_ROUND') {
             if (props.state.questionIndex < 1)
                 return `Ready for round 2?`;
@@ -68,8 +71,12 @@ export default function ControlPanel (props: Props) {
             return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: 0})}>{props.state.teams[0].members[props.state.teams[0].member_turn]}</button>
         } else if (props.state.phase === 'HEADS_UP_ANSWERED_FIRST' || props.state.phase === 'WAIT_FOR_ANSWER') {
             return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'ANSWERED_CORRECT'})}>Yes!</button>
+        } else if (props.state.phase === 'STEAL') {
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'STEAL_ANSWERED_CORRECT'})}>Yes!</button>
         } else if (props.state.phase === 'END_ROUND') {
             return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'START_NEXT_ROUND'})}>START!</button>
+        } else if (props.state.phase === 'END_GAME') {
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'RESTART'})}>PLAY AGAIN!</button>
         }
     }
 
@@ -80,32 +87,37 @@ export default function ControlPanel (props: Props) {
             return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP_WRONG'})}>No :(</button>
         }  else if (props.state.phase === 'WAIT_FOR_ANSWER') {
             return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'ANSWERED_WRONG'})}>No :(</button>
+        } else if (props.state.phase === 'STEAL') {
+            return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'STEAL_ANSWERED_WRONG'})}>No :(</button>
         }
     }
 
-    return (
-        <Flex in={props.state.phase !== 'SET_UP'}>
-            <div id="control-panel" className="w-full grid grid-cols-4 gap-4">
-                <div className="flex flex-col justify-between items-center">
-                    <div className="flex justify-center overflow-hidden">
-                        <img src={imagePath()} width="150" alt="Steve Harvey"/>
+    if (props.state.questions.length > 0) {
+        return (
+            <Flex in={props.state.phase !== 'SET_UP'}>
+                <div id="control-panel" className="w-full grid grid-cols-4 gap-4">
+                    <div className="flex flex-col justify-between items-center">
+                        <div className="flex justify-center overflow-hidden">
+                            <img src={imagePath()} width="150" alt="Steve Harvey"/>
+                        </div>
+    
+                        <a className=" bg-gradient-to-r from-pink-400 to-red-500 text-white px-4 py-2 rounded" href={`/questions/${props.state.questions[props.state.questionIndex].id}`} target="_blank">Click to see answers in another window</a>
                     </div>
-
-                    <a className=" bg-gradient-to-r from-pink-400 to-red-500 text-white px-4 py-2 rounded">Click to see answers in another window</a>
+    
+                    <div className="col-span-3 bg-white rounded-2xl p-2 text-center flex flex-col justify-between">
+                        <div>
+                            <p className="text-yellow-500 text-xl mb-4">{headerText()}</p>
+                            <p className="text-lg">{instructionText()}</p>
+                        </div>
+    
+                        <div>
+                            {renderLeftBtn()}
+                            {renderRightBtn()}
+                        </div>
+                    </div>
                 </div>
-
-                <div className="col-span-3 bg-white rounded-2xl p-2 text-center flex flex-col justify-between">
-                    <div>
-                        <p className="text-yellow-500 text-xl mb-4">{headerText()} {props.state.phase}</p>
-                        <p className="text-lg">{instructionText()}</p>
-                    </div>
-
-                    <div>
-                        {renderLeftBtn()}
-                        {renderRightBtn()}
-                    </div>
-                </div>
-            </div>
-        </Flex>
-    )
+            </Flex>
+        )
+    }
+    return null;
 }

@@ -35,7 +35,7 @@ export default function TeamPanel (props: Props) {
             if (props.team.member_turn === index) {
                 return 'border-4 border-red-500';
             }
-        } else if (props.phase === 'STEAL') {
+        } else if (props.phase === 'STEAL' || props.phase === 'STEAL_WAIT_FOR_ANSWER') {
             if (!props.teamTurn) {
                 return 'border-4 border-red-500';
             }
