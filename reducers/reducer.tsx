@@ -1,36 +1,42 @@
 export type Team = {
+    name: string,
     members: Array<string>,
     member_turn: number,
     points: number,
+    rounds_won: number,
 }
 
 export type reducerState = {
     phase: string,
-    round: number,
     questions: Array<any>,
     questionIndex: number,
     answeredNames: Array<number>,
+    answeredWrongCount: number,
     teamTurn: number,
     teams: Array<Team>,
 }
 
 export const initialState = {
     phase: 'SET_UP',
-    round: 1,
     questions: [],
     questionIndex: 0,
     answeredNames: [],
+    answeredWrongCount: 0,
     teamTurn: 0,
     teams: [
         {
+            name: 'TEAM ONE',
             members: [],
             member_turn: 0,
             points: 0,
+            roundsWon: 0,
         },
         {
+            name: 'TEAM TWO',
             members: [],
             member_turn: 0,
             points: 0,
+            roundsWon: 0,
         },
     ],
 }
@@ -52,37 +58,78 @@ export const AppReducer = (state, action) => {
         }
         case 'HEADS_UP_ANSWERED_FIRST': {
             return {...state, teamTurn: action.payload, phase: 'HEADS_UP_ANSWERED_FIRST'};
-        }
+        } 
+        case 'HEADS_UP_WRONG': {
+            let teamTurn = state.teamTurn === 0 ? 1: 0;
+            ++state.teams[teamTurn].member_turn;
+            return {...state, teamTurn, phase: 'SHOW_X'};
+        } 
         case 'ANSWERED_CORRECT': {
             return {...state, phase: 'SELECT_ANSWER'};
-        } case 'HEADS_UP_WRONG': {
-            let teamTurn = state.teamTurn === 0 ? 1 : 0;
-            return {...state, teamTurn, phase: 'WAIT_FOR_ANSWER'};
-        } case 'PROCESS_ANSWER': {
+        } 
+        case 'ANSWERED_WRONG': {
+            let teams = state.teams.slice();
+            let currentTeam = teams[state.teamTurn];
+
+            let answeredWrongCount = ++state.answeredWrongCount;
+            let phase = 'SHOW_X';
+            if (answeredWrongCount  < 3) {
+                if (currentTeam.members.length === currentTeam.member_turn + 1) {
+                    currentTeam.member_turn = 0;
+                } else {
+                    currentTeam.member_turn ++;
+                }
+            }
+            return {...state, answeredWrongCount, teams, phase};
+        } 
+        case 'WAIT_FOR_ANSWER': {
+            return {...state, phase: 'WAIT_FOR_ANSWER'};
+        } 
+        case 'STEAL': {
+            return {...state, phase: 'STEAL'};
+        } 
+        case 'PROCESS_ANSWER': {
             let answeredNames = state.answeredNames.slice();
             answeredNames.push(action.payload.name);
             let teams = state.teams.slice();
             teams[state.teamTurn].points += action.payload.points;
-
-            if (teams[state.teamTurn].members.length === teams[state.teamTurn].member_turn + 1) {
-                teams[state.teamTurn].member_turn = 0;
-            } else {
-                teams[state.teamTurn].member_turn ++;
-            }
             
             let phase = 'WAIT_FOR_ANSWER';
 
             if (answeredNames.length === state.questions[state.questionIndex].answers.length) {
+                if (teams[0].points > teams[1].points) {
+                    teams[0].rounds_won++;
+                } else {
+                    teams[1].rounds_won++;
+                }
+
                 if (state.questionIndex === 2) {
-                    console.log('end game')
                     phase = 'END_GAME';
                 } else {
-                    console.log('end round')
                     phase = 'END_ROUND';
+                }
+            } else {
+                if (teams[state.teamTurn].members.length === teams[state.teamTurn].member_turn + 1) {
+                    teams[state.teamTurn].member_turn = 0;
+                } else {
+                    teams[state.teamTurn].member_turn ++;
                 }
             }
             
             return {...state, answeredNames, teams, phase}
+        } 
+        case 'START_NEXT_ROUND': {
+            let teamTurn = state.teamTurn === 0 ? 1 : 0;
+            let teams = state.teams.slice();
+            teams[0].points = 0;
+            teams[1].points = 0;
+            if (teams[teamTurn].members.length === teams[teamTurn].member_turn + 1) {
+                teams[teamTurn].member_turn = 0;
+            } else {
+                teams[teamTurn].member_turn ++;
+            }
+            let questionIndex = ++state.questionIndex;
+            return {...state, teams, questionIndex, teamTurn, answeredNames: [], phase: 'WAIT_FOR_ANSWER'}
         }
 
         default:

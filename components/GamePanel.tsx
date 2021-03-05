@@ -5,7 +5,8 @@ type Props = {
     phase: string,
     question: any,
     answeredNames: Array<number>,
-    answerClicked: (answer: any) => void
+    answeredWrongCount: number,
+    answerClicked: (answer: any) => void,
 }
 
 export default function GamePanel (props: Props) {
@@ -47,10 +48,32 @@ export default function GamePanel (props: Props) {
         });
     }
 
+    function renderX () {
+        if (props.phase === 'SHOW_X') {
+            if (props.answeredWrongCount === 0) {
+                return (
+                    <div className="text-red-500 text-9xl absolute top-32 flex">
+                        <p className="mx-5">X</p>
+                    </div>
+                )
+            }
+
+            let arr = [];
+            for (let i = 1; i <= props.answeredWrongCount ; i++) {
+                arr.push(<p key={`x-${i}`} className="mx-5">X</p>)
+            };
+            return (
+                <div className="text-red-500 text-9xl absolute top-32 flex">
+                    {arr}
+                </div>
+            );
+        }
+    }
+
     if (props.question) {
         return (
             <Fade in={props.in}>
-                <div id="game-panel" className="h-full flex flex-col items-center py-4 text-white ">
+                <div id="game-panel" className="relative h-full flex flex-col items-center py-4 text-white ">
                     <div className="w-full bg-blue-600 p-4 h-14">
                         <p className="uppercase text-center">{props.phase !== 'HEADS_UP_INFO' ? props.question.name : ''}</p>
     
@@ -59,6 +82,9 @@ export default function GamePanel (props: Props) {
                     <div className={`${props.phase === 'SELECT_ANSWER' ? 'animate-border' : ''} w-full grid grid-cols-2 gap-4 bg-gray-700 border-8 border-yellow-500 rounded-xl p-2 mt-4`}>
                         {renderAnswers()}
                     </div>
+                
+                    {renderX()}
+                
                 </div>
             </Fade>
         )

@@ -2,7 +2,6 @@ import { Team } from '../reducers/reducer';
 import Fade from './Transition';
 
 type Props = {
-    teamName: string,
     members: Array<string>,
     team: Team,
     phase: string,
@@ -32,17 +31,22 @@ export default function TeamPanel (props: Props) {
     }
 
     function activePlayer(index: number) {
-        if (props.phase === 'HEADS_UP_INFO') {
+        if (props.phase === 'HEADS_UP_INFO' || props.phase === 'HEADS_UP') {
             if (props.team.member_turn === index) {
                 return 'border-4 border-red-500';
+            }
+        } else if (props.phase === 'STEAL') {
+            if (!props.teamTurn) {
+                return 'border-4 border-red-500';
+            }
+        } else {
+            if (props.teamTurn) {
+                if (props.team.member_turn === index) {
+                    return 'border-4 border-red-500';
+                }
             }
         }
 
-        if (props.teamTurn) {
-            if (props.team.member_turn === index) {
-                return 'border-4 border-red-500';
-            }
-        }
     }
 
     function renderPlayers() {
@@ -63,7 +67,7 @@ export default function TeamPanel (props: Props) {
     return (
         <div>
             <div className="flex justify-center items-center bg-blue-500 py-2">
-                <p className="text-2xl text-yellow-400">{props.teamName}</p>
+                <p className="text-2xl text-yellow-400">{props.team.name}</p>
             </div>
 
             {renderInputs()}

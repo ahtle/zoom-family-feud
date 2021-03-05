@@ -30,9 +30,9 @@ const Home: FC = () => {
   const {state, dispatch} = useContext(AppContext);
 
   // local state
-  const [numberOfPlayers, setNumberOfPlayers] = useState(3);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(4);
   const [teamOne, setTeamOne] = useState(['a', 'b']);
-  const [teamTwo, setTeamTwo] = useState(['c']);
+  const [teamTwo, setTeamTwo] = useState(['c', 'd']);
   const [ready, setReady] = useState(false);
 
   // initiate team members
@@ -86,6 +86,21 @@ const Home: FC = () => {
     }
   }, [teamOne, teamTwo]);
 
+  // phases
+  useEffect(() => {
+    if (state.phase === 'SHOW_X') {
+      console.log('show x')
+      setTimeout(() => {
+        if (state.answeredWrongCount < 3 ) {
+          console.log('dispatch wait for answer')
+          dispatch({type: 'WAIT_FOR_ANSWER'});
+        } else {
+          dispatch({type: 'STEAL'});
+        }
+      }, 1500)
+    }
+  }, [state.phase])
+
   return (
     <div id="home-page" className="bg-yellow-100">
       <div className="grid grid-cols-6 gap-2 min-h-90vh">
@@ -93,7 +108,6 @@ const Home: FC = () => {
         {/* left column */}
         <div className="border-8 border-yellow-900 bg-yellow-50 p-2">
           <TeamPanel
-            teamName="TEAM ONE"
             members={teamOne}
             onChange={setTeamOnePlayer}
             phase={state.phase}
@@ -118,6 +132,7 @@ const Home: FC = () => {
               in={state.phase !== 'SET_UP'}
               phase={state.phase}
               answeredNames={state.answeredNames}
+              answeredWrongCount={state.answeredWrongCount}
               question={state.questions[state.questionIndex]}
               answerClicked={(answer) => dispatch({type: 'PROCESS_ANSWER', payload: answer})}
             />
@@ -129,10 +144,7 @@ const Home: FC = () => {
           <div className="h-1/3 bg-gray-700 p-4 flex">
             <ControlPanel
               state={state}
-              startHeadsUp={() => dispatch({type: 'HEADS_UP'})}
-              answeredFirst={(index) => dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: index})}
-              answeredCorrect={() => dispatch({type: 'ANSWERED_CORRECT'})}
-              answeredFirstWrong={() => dispatch({type: 'HEADS_UP_WRONG'})}
+              dispatch={dispatch}
             />
           </div>
         </div>

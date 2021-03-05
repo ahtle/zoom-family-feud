@@ -1,12 +1,9 @@
-import React from 'react';
+import React, {Dispatch } from 'react';
 import Flex from '../components/Transition';
 
 type Props = {
     state: any,
-    startHeadsUp: () => void,
-    answeredFirst: (index: number) => void,
-    answeredCorrect: () => void,
-    answeredFirstWrong: () => void,
+    dispatch: Dispatch<{type: string; payload?: any}>
 }
 
 export default function ControlPanel (props: Props) {
@@ -20,6 +17,17 @@ export default function ControlPanel (props: Props) {
             return 'SURVEY SAY...';
         } else if (props.state.phase === 'WAIT_FOR_ANSWER') {
             return `${activeMember}'s TURN!`
+        } else if (props.state.phase === 'SHOW_X') {
+            return `OOPS...`
+        } else if (props.state.phase === 'STEAL') {
+            let team = props.state.teamTurn === 0 ? props.state.teams[1] : props.state.teams[0];
+            return `${team.name}'S CHANGE TO STEAL THE BOARD`;
+        } else if (props.state.phase === 'END_ROUND') {
+            let teamWon = props.state.teams[0].points  > props.state.teams[1].points ? 'TEAM ONE' : 'TEAM TWO';
+            return `${teamWon} WON THE ROUND!`;
+        } else if (props.state.phase === 'END_GAME') {
+            let teamWon = props.state.teams[0].roundsWon  > props.state.teams[1].roundsWon ? 'TEAM ONE' : 'TEAM TWO';
+            return `CONGRATULATION ${teamWon}!`
         }
     }
 
@@ -34,6 +42,15 @@ export default function ControlPanel (props: Props) {
             return `Did ${activeMember} answered right?`
         } else if (props.state.phase === 'SELECT_ANSWER') {
             return 'YAY! Select the answer above';
+        } else if (props.state.phase === 'STEAL') {
+            return 'Answer as a team';
+        } else if (props.state.phase === 'END_ROUND') {
+            if (props.state.questionIndex < 1)
+                return `Ready for round 2?`;
+            return `Ready for last round?`;
+        } else if (props.state.phase === 'END_GAME') {
+            let team = props.state.teams[0].roundsWon  > props.state.teams[1].roundsWon ? props.state.teams[0] : props.state.teams[1];
+            return `${team.name} won ${team.roundsWon} rounds`;
         }
     }
 
@@ -46,19 +63,23 @@ export default function ControlPanel (props: Props) {
 
     function renderLeftBtn() {
         if (props.state.phase === 'HEADS_UP_INFO') {
-            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={props.startHeadsUp}>START!</button>
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP'})}>START!</button>
         } else if (props.state.phase === 'HEADS_UP') {
-            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.answeredFirst(0)}>{props.state.teams[0].members[props.state.teams[0].member_turn]}</button>
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: 0})}>{props.state.teams[0].members[props.state.teams[0].member_turn]}</button>
         } else if (props.state.phase === 'HEADS_UP_ANSWERED_FIRST' || props.state.phase === 'WAIT_FOR_ANSWER') {
-            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={props.answeredCorrect}>Yes!</button>
-        }  
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'ANSWERED_CORRECT'})}>Yes!</button>
+        } else if (props.state.phase === 'END_ROUND') {
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'START_NEXT_ROUND'})}>START!</button>
+        }
     }
 
     function renderRightBtn() {
         if (props.state.phase === 'HEADS_UP') {
-            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.answeredFirst(1)}>{props.state.teams[1].members[props.state.teams[1].member_turn]}</button>
-        } else if (props.state.phase === 'HEADS_UP_ANSWERED_FIRST'  || props.state.phase === 'WAIT_FOR_ANSWER') {
-            return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={props.answeredFirstWrong}>No :(</button>
+            return <button className="py-4 px-6 bg-blue-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP_ANSWERED_FIRST', payload: 1})}>{props.state.teams[1].members[props.state.teams[1].member_turn]}</button>
+        } else if (props.state.phase === 'HEADS_UP_ANSWERED_FIRST') {
+            return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'HEADS_UP_WRONG'})}>No :(</button>
+        }  else if (props.state.phase === 'WAIT_FOR_ANSWER') {
+            return <button className="py-4 px-6 bg-red-400 rounded-xl m-4 w-32" onClick={() => props.dispatch({type: 'ANSWERED_WRONG'})}>No :(</button>
         }
     }
 
