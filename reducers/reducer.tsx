@@ -17,7 +17,7 @@ export type Question = {
 
 export type reducerState = {
     phase: string,
-    questions: Question,
+    questions: Array<Question>,
     questionIndex: number,
     answeredNames: Array<number>,
     answeredWrongCount: number,
