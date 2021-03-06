@@ -96,5 +96,661 @@
                 "points": 4
             }
         ]
+    },
+    {
+        "id": 4,
+        "name": "Name a liquid in your kitchen that you hope no one ever accidentally drinks.",
+        "answers": [ 
+            {
+                "name": "Soap",
+                "points": 46
+            },
+            {
+                "name": "Vinegar",
+                "points": 30
+            },
+            {
+                "name": "Cooking oil",
+                "points": 16
+            },
+            {
+                "name": "Soy sauce",
+                "points": 4
+            },
+            {
+                "name": "Bacon grease",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Name a famous wizard",
+        "answers": [ 
+            {
+                "name": "Harry Potter",
+                "points": 37
+            },
+            {
+                "name": "Merlin",
+                "points": 26
+            },
+            {
+                "name": "Gandalf",
+                "points": 11
+            },
+            {
+                "name": "Dr. Strange",
+                "points": 9
+            },
+            {
+                "name": "The Wizard of Oz",
+                "points": 8
+            },
+            {
+                "name": "Voldemort",
+                "points": 3
+            },
+            {
+                "name": "Newt Scamander",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Tell me whose name a young man might have tattooed on himself.",
+        "answers": [ 
+            {
+                "name": "Mom",
+                "points": 33
+            },
+            {
+                "name": "Wife/girlfriend",
+                "points": 25
+            },
+            {
+                "name": "Child",
+                "points": 14
+            },
+            {
+                "name": "God",
+                "points": 9
+            },
+            {
+                "name": "Father",
+                "points": 6
+            },
+            {
+                "name": "Grandparent",
+                "points": 5
+            },
+            {
+                "name": "Pet",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Name a sport some mothers hope their child never plays",
+        "answers": [ 
+            {
+                "name": "Hockey",
+                "points": 36
+            },
+            {
+                "name": "Football",
+                "points": 34
+            },
+            {
+                "name": "Baseball",
+                "points": 13
+            },
+            {
+                "name": "Soccer",
+                "points": 7
+            },
+            {
+                "name": "Rugby",
+                "points": 5
+            },
+            {
+                "name": "Basketball",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Name a reason you might be late for work",
+        "answers": [ 
+            {
+                "name": "Traffic",
+                "points": 38
+            },
+            {
+                "name": "Woke up/left late",
+                "points": 26
+            },
+            {
+                "name": "Car trouble/accident",
+                "points": 11
+            },
+            {
+                "name": "Bus/train delay",
+                "points": 10
+            },
+            {
+                "name": "Dropping off kids",
+                "points": 4
+            },
+            {
+                "name": "Sick/medical emergency",
+                "points": 4
+            },
+            {
+                "name": "Weather",
+                "points": 3
+            },
+            {
+                "name": "Hungover",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Tell me a type of gun that doesn't shoot bullets",
+        "answers": [ 
+            {
+                "name": "Nail gun",
+                "points": 23
+            },
+            {
+                "name": "Stun gun",
+                "points": 21
+            },
+            {
+                "name": "Water gun",
+                "points": 18
+            },
+            {
+                "name": "BB gun",
+                "points": 14
+            },
+            {
+                "name": "Biceps/muscles",
+                "points": 8
+            },
+            {
+                "name": "Paintball gun",
+                "points": 2
+            },
+            {
+                "name": "Son of a gun",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Name a reason a person might be running",
+        "answers": [ 
+            {
+                "name": "Exercise",
+                "points": 36
+            },
+            {
+                "name": "Catch bus or train",
+                "points": 26
+            },
+            {
+                "name": "Catch other person",
+                "points": 13
+            },
+            {
+                "name": "Get somewhere",
+                "points": 9
+            },
+            {
+                "name": "Sport/game",
+                "points": 6
+            },
+            {
+                "name": "Escape/being chased",
+                "points": 5
+            },
+            {
+                "name": "Broke the law",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Name a place where people have to use coins",
+        "answers": [ 
+            {
+                "name": "Vending machine",
+                "points": 29
+            },
+            {
+                "name": "Laundromat",
+                "points": 22
+            },
+            {
+                "name": "Bus/subway",
+                "points": 21
+            },
+            {
+                "name": "Parking meter",
+                "points": 20
+            },
+            {
+                "name": "Pay phone",
+                "points": 3
+            },
+            {
+                "name": "Bank",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "What might a married man rather admit to his buddies than to his wife?",
+        "answers": [ 
+            {
+                "name": "She's a bad cook",
+                "points": 26
+            },
+            {
+                "name": "Doesn't like in-laws",
+                "points": 22
+            },
+            {
+                "name": "Doesn't like wife's friends",
+                "points": 27
+            },
+            {
+                "name": "Dirty pictures/magazines",
+                "points": 10
+            },
+            {
+                "name": "In debt",
+                "points": 5
+            },
+            {
+                "name": "Checked out another woman",
+                "points": 4
+            },
+            {
+                "name": "Quit job",
+                "points": 4
+            },
+            {
+                "name": "Kid is ugly",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Name something appealing about working from home",
+        "answers": [ 
+            {
+                "name": "No clothes/dress code",
+                "points": 28
+            },
+            {
+                "name": "Flexible hours",
+                "points": 26
+            },
+            {
+                "name": "Great commute",
+                "points": 17
+            },
+            {
+                "name": "See family",
+                "points": 10
+            },
+            {
+                "name": "Avoid coworkers",
+                "points": 4
+            },
+            {
+                "name": "Save money",
+                "points": 3
+            },
+            {
+                "name": "Avoid boss",
+                "points": 3
+            },
+            {
+                "name": "Bathroom anytime",
+                "points": 2
+            },
+            {
+                "name": "No babysitter",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Name a profession that would be difficult for a coward",
+        "answers": [ 
+            {
+                "name": "Police officer",
+                "points": 22
+            },
+            {
+                "name": "Firefighter",
+                "points": 19
+            },
+            {
+                "name": "Armed forces",
+                "points": 18
+            },
+            {
+                "name": "Doctor/surgeon",
+                "points": 15
+            },
+            {
+                "name": "Mortician",
+                "points": 7
+            },
+            {
+                "name": "Exterminator",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Name the happiest day in a woman's life",
+        "answers": [ 
+            {
+                "name": "Married",
+                "points": 41
+            },
+            {
+                "name": "Kids",
+                "points": 25
+            },
+            {
+                "name": "Promotion/new job",
+                "points": 14
+            },
+            {
+                "name": "Grandkids",
+                "points": 6
+            },
+            {
+                "name": "Graduation/college",
+                "points": 4
+            },
+            {
+                "name": "Kid's graduation",
+                "points": 3
+            },
+            {
+                "name": "Retirement",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Name the most annoying thing other drivers do on the road",
+        "answers": [ 
+            {
+                "name": "Not use turn signals",
+                "points": 28
+            },
+            {
+                "name": "Cut you off",
+                "points": 26
+            },
+            {
+                "name": "Speed",
+                "points": 13
+            },
+            {
+                "name": "Drive too slow",
+                "points": 12
+            },
+            {
+                "name": "Tailgate",
+                "points": 7
+            },
+            {
+                "name": "Use cell phone",
+                "points": 4
+            },
+            {
+                "name": "Loud music",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "name": "We asked 100 single men... Name a line you use in bars that usually works",
+        "answers": [ 
+            {
+                "name": "Know/Met before?",
+                "points": 26
+            },
+            {
+                "name": "Hi/Howdy/Hey babe",
+                "points": 21
+            },
+            {
+                "name": "Can I buy you a drink/beer?",
+                "points": 17
+            },
+            {
+                "name": "Come here often?",
+                "points": 11
+            },
+            {
+                "name": "You're cute!",
+                "points": 9
+            },
+            {
+                "name": "Here with someone?",
+                "points": 8
+            },
+            {
+                "name": "Died/See an angel",
+                "points": 7
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Name a reason you might say to someone, 'Don't come near me.'",
+        "answers": [ 
+            {
+                "name": "Sick / Have the plague",
+                "points": 51
+            },
+            {
+                "name": "Smelly",
+                "points": 23
+            },
+            {
+                "name": "Afraid of them",
+                "points": 10
+            },
+            {
+                "name": "Covered in filth",
+                "points": 5
+            },
+            {
+                "name": "Angry / I hate them",
+                "points": 5
+            },
+            {
+                "name": "Gonna tickle me!",
+                "points": 2
+            },
+            {
+                "name": "I am sunburned",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Name a reason you might say to someone, 'Don't come near me.'",
+        "answers": [ 
+            {
+                "name": "Sick / Have the plague",
+                "points": 51
+            },
+            {
+                "name": "Smelly",
+                "points": 23
+            },
+            {
+                "name": "Afraid of them",
+                "points": 10
+            },
+            {
+                "name": "Covered in filth",
+                "points": 5
+            },
+            {
+                "name": "Angry / I hate them",
+                "points": 5
+            },
+            {
+                "name": "Gonna tickle me!",
+                "points": 2
+            },
+            {
+                "name": "I am sunburned",
+                "points": 2
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "name": "If you're obsessed with yourself, name a place you'd keep your picture",
+        "answers": [ 
+            {
+                "name": "Home / over my bed",
+                "points": 44
+            },
+            {
+                "name": "Wallet",
+                "points": 28
+            },
+            {
+                "name": "At work / on desk",
+                "points": 12
+            },
+            {
+                "name": "Computer / Facebook",
+                "points": 12
+            },
+            {
+                "name": "Car / Dashboard",
+                "points": 5
+            },
+            {
+                "name": "Cell phone / screen",
+                "points": 3
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "name": "If your dog could talk, name something the two of you would talk about",
+        "answers": [ 
+            {
+                "name": "Hotties",
+                "points": 40
+            },
+            {
+                "name": "Life / Our days",
+                "points": 17
+            },
+            {
+                "name": "Food",
+                "points": 15
+            },
+            {
+                "name": "Pee / poop outside",
+                "points": 11
+            },
+            {
+                "name": "Cars",
+                "points": 5
+            },
+            {
+                "name": "The comfy couch",
+                "points": 5
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Name something a man finds in the house that makes him suspect his wife might kill him",
+        "answers": [ 
+            {
+                "name": "Poison",
+                "points": 33
+            },
+            {
+                "name": "Gun",
+                "points": 29
+            },
+            {
+                "name": "Insurance policy",
+                "points": 15
+            },
+            {
+                "name": "Knife / Machete",
+                "points": 11
+            },
+            {
+                "name": "Hitman's info",
+                "points": 5
+            },
+            {
+                "name": "'How to' research",
+                "points": 4
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "name": "A jealous Mrs. Claus might say to Santa, 'It's either ________ or me.'",
+        "answers": [ 
+            {
+                "name": "Rudolph / Reindeer",
+                "points": 34
+            },
+            {
+                "name": "Those pesky elves",
+                "points": 33
+            },
+            {
+                "name": "Christmas / toys / kids",
+                "points": 15
+            },
+            {
+                "name": "Your skanky ho ho ho",
+                "points": 15
+            },
+            {
+                "name": "Cookies",
+                "points": 3
+            }
+        ]
     }
 ]
