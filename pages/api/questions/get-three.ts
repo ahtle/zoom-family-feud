@@ -5,8 +5,6 @@ import data from '../../../questions.json';
 const questions = <any>data;
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.body);
-
   // get 3 unique index
   let max = questions.length;
   let indexes = [];
