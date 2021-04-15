@@ -1,33 +1,48 @@
-import { FC, useContext, useState, useEffect } from 'react';
-import TeamPanel from '../components/TeamPanel';
-import SetupPanel from '../components/SetupPanel';
-import GamePanel from '../components/GamePanel';
-import ControlPanel from '../components/ControlPanel';
-import { AppContext } from '../contexts/AppContext';
+import { FC, useContext, useState, useEffect } from "react";
+import TeamPanel from "../components/TeamPanel";
+import SetupPanel from "../components/SetupPanel";
+import GamePanel from "../components/GamePanel";
+import ControlPanel from "../components/ControlPanel";
+import { AppContext } from "../contexts/AppContext";
 
 const Home: FC = () => {
+    // global state
+    const { state, dispatch } = useContext(AppContext);
 
     // methods
-    function setTeamOnePlayer(e: React.ChangeEvent<HTMLInputElement>, index: number) {
+    function setTeamOnePlayer(
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) {
         let newArr = teamOne.slice();
         newArr[index] = e.target.value;
         setTeamOne(newArr);
     }
 
-    function setTeamTwoPlayer(e: React.ChangeEvent<HTMLInputElement>, index: number) {
+    function setTeamTwoPlayer(
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) {
         let newArr = teamTwo.slice();
         newArr[index] = e.target.value;
         setTeamTwo(newArr);
     }
 
     const startGameClick = async () => {
-        let res = await fetch('/api/questions/get-three');
+        let res = await fetch("/api/questions/get-three", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ questions_seen: state.questions_seen }),
+        });
         const questions = await res.json();
-        dispatch({ type: 'START_GAME', payload: { teamOne, teamTwo, questions } });
-    }
-
-    // global state
-    const { state, dispatch } = useContext(AppContext);
+        dispatch({
+            type: "START_GAME",
+            payload: { teamOne, teamTwo, questions },
+        });
+    };
 
     // local state
     const [numberOfPlayers, setNumberOfPlayers] = useState(0);
@@ -49,14 +64,14 @@ const Home: FC = () => {
             if (i < teamOne.length) {
                 arr1.push(teamOne[i]);
             } else {
-                arr1.push('');
+                arr1.push("");
             }
         }
         for (let i = 0; i < team_two_number; i++) {
             if (i < teamTwo.length) {
                 arr2.push(teamTwo[i]);
             } else {
-                arr2.push('');
+                arr2.push("");
             }
         }
         setTeamOne(arr1);
@@ -72,13 +87,13 @@ const Home: FC = () => {
         if (numberOfPlayers > 0) {
             let ready = true;
 
-            teamOne.forEach(name => {
-                if (name === '') {
+            teamOne.forEach((name) => {
+                if (name === "") {
                     ready = false;
                 }
             });
-            teamTwo.forEach(name => {
-                if (name === '') {
+            teamTwo.forEach((name) => {
+                if (name === "") {
                     ready = false;
                 }
             });
@@ -88,27 +103,26 @@ const Home: FC = () => {
 
     // phases
     useEffect(() => {
-        if (state.phase === 'SHOW_X') {
+        if (state.phase === "SHOW_X") {
             setTimeout(() => {
                 if (state.answeredWrongCount < 3) {
-                    dispatch({ type: 'WAIT_FOR_ANSWER' });
+                    dispatch({ type: "WAIT_FOR_ANSWER" });
                 } else {
-                    dispatch({ type: 'STEAL' });
+                    dispatch({ type: "STEAL" });
                 }
-            }, 1000)
-        } else if (state.phase === 'STEAL_SHOW_X') {
+            }, 1000);
+        } else if (state.phase === "STEAL_SHOW_X") {
             setTimeout(() => {
-                dispatch({ type: 'STEAL_OVER' });
+                dispatch({ type: "STEAL_OVER" });
             }, 1000);
         }
-    }, [state.phase])
+    }, [state.phase]);
 
     return (
         <div id="home-page" className="bg-yellow-100">
             <div className="grid grid-cols-6 gap-2 min-h-90vh">
-
                 {/* left column */}
-                <div className="border-8 border-yellow-900 bg-yellow-50 p-2">
+                <div className="p-2 border-8 border-yellow-900 bg-yellow-50">
                     <TeamPanel
                         members={teamOne}
                         onChange={setTeamOnePlayer}
@@ -119,41 +133,46 @@ const Home: FC = () => {
                 </div>
 
                 {/* middle column */}
-                <div className="col-span-4 flex flex-col justify-between">
+                <div className="flex flex-col justify-between col-span-4">
                     <div className="h-2/3">
-
                         <SetupPanel
-                            in={state.phase === 'SET_UP'}
+                            in={state.phase === "SET_UP"}
                             defaultNumberOfPlayers={numberOfPlayers}
-                            onChange={(e) => setNumberOfPlayers(parseInt(e.target.value))}
+                            onChange={(e) =>
+                                setNumberOfPlayers(parseInt(e.target.value))
+                            }
                             onClick={startGameClick}
                             ready={ready}
                         />
 
                         <GamePanel
-                            in={state.phase !== 'SET_UP'}
+                            in={state.phase !== "SET_UP"}
                             phase={state.phase}
                             answeredNames={state.answeredNames}
                             answeredWrongCount={state.answeredWrongCount}
                             question={state.questions[state.questionIndex]}
-                            answerClicked={(answer) => dispatch({ type: 'PROCESS_ANSWER', payload: answer })}
-                            stealAnswerClicked={(answer) => dispatch({ type: 'STEAL_PROCESS_ANSWER', payload: answer })}
+                            answerClicked={(answer) =>
+                                dispatch({
+                                    type: "PROCESS_ANSWER",
+                                    payload: answer,
+                                })
+                            }
+                            stealAnswerClicked={(answer) =>
+                                dispatch({
+                                    type: "STEAL_PROCESS_ANSWER",
+                                    payload: answer,
+                                })
+                            }
                         />
-
-
-
                     </div>
 
-                    <div className="h-1/3 bg-gray-700 p-4 flex">
-                        <ControlPanel
-                            state={state}
-                            dispatch={dispatch}
-                        />
+                    <div className="flex p-4 bg-gray-700 h-1/3">
+                        <ControlPanel state={state} dispatch={dispatch} />
                     </div>
                 </div>
 
                 {/* right column */}
-                <div className="border-8 border-yellow-900 bg-yellow-50 p-2">
+                <div className="p-2 border-8 border-yellow-900 bg-yellow-50">
                     <TeamPanel
                         members={teamTwo}
                         onChange={setTeamTwoPlayer}
@@ -162,10 +181,9 @@ const Home: FC = () => {
                         teamTurn={state.teamTurn === 1}
                     />
                 </div>
-
             </div>
         </div>
-    )
+    );
 };
 
-export default Home
+export default Home;
